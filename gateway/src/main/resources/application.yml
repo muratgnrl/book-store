@@ -1,0 +1,26 @@
+server:
+  port: 5050
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      routes:
+        - id: book
+          uri: http://localhost:5050/book/
+          predicates:
+            - Path= /book/**
+            #==========================
+        - id: authone
+          uri: http://localhost:7070/authone/
+          predicates:
+            - Path= /authone/**
+            #==========================
